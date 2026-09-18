@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CR7 — 크리스티아누 호날두 | 최고의 축구 선수</title>
+<meta name="description" content="축구 역사상 최고의 골게터, 크리스티아누 호날두의 커리어와 기록을 소개합니다.">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-2: #12121a;
+    --card: #171722;
+    --gold: #e8c15a;
+    --gold-2: #f5d98a;
+    --text: #f2f2f5;
+    --muted: #9a9aa8;
+    --green: #2fbf71;
+    --red: #e63946;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  section { padding: 100px 20px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 40px;
+    background: rgba(10,10,15,.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 2px; }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { font-size: .92rem; color: var(--muted); transition: color .2s; }
+  .nav-links a:hover { color: var(--gold); }
+  @media (max-width: 640px) { .nav-links { display: none; } }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; position: relative;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(232,193,90,.14), transparent),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(47,191,113,.08), transparent),
+      var(--bg);
+  }
+  .hero-num {
+    font-size: clamp(8rem, 28vw, 20rem);
+    font-weight: 900; line-height: .9;
+    background: linear-gradient(180deg, var(--gold-2) 0%, var(--gold) 45%, rgba(232,193,90,.05) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -8px;
+    animation: rise 1s ease-out;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+  .hero h1 {
+    font-size: clamp(1.6rem, 4.5vw, 3rem);
+    font-weight: 800; margin-top: 8px; letter-spacing: 1px;
+    animation: rise 1s .15s ease-out backwards;
+  }
+  .hero p {
+    color: var(--muted); max-width: 560px; margin-top: 16px;
+    font-size: 1.05rem; animation: rise 1s .3s ease-out backwards;
+  }
+  .hero-badges { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; justify-content: center; animation: rise 1s .45s ease-out backwards; }
+  .badge {
+    padding: 8px 18px; border-radius: 999px; font-size: .85rem; font-weight: 600;
+    border: 1px solid rgba(232,193,90,.4); color: var(--gold-2);
+    background: rgba(232,193,90,.07);
+  }
+  .scroll-hint {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    color: var(--muted); font-size: .8rem; letter-spacing: 2px;
+    animation: bob 2s infinite;
+  }
+  @keyframes bob { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+
+  /* ===== SECTION HEADERS ===== */
+  .sec-head { text-align: center; margin-bottom: 60px; }
+  .sec-head .label { color: var(--gold); font-weight: 700; letter-spacing: 4px; font-size: .85rem; }
+  .sec-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-top: 8px; }
+  .sec-head p { color: var(--muted); margin-top: 12px; max-width: 640px; margin-left: auto; margin-right: auto; }
+
+  /* ===== PROFILE ===== */
+  .profile-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px; max-width: 1100px; margin: 0 auto;
+  }
+  .p-card {
+    background: var(--card); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px; padding: 26px 24px; text-align: center;
+    transition: transform .25s, border-color .25s;
+  }
+  .p-card:hover { transform: translateY(-6px); border-color: rgba(232,193,90,.5); }
+  .p-card .icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .p-card .k { color: var(--muted); font-size: .85rem; }
+  .p-card .v { font-size: 1.15rem; font-weight: 700; margin-top: 4px; }
+
+  /* ===== STATS COUNTER ===== */
+  .stats-band {
+    background: linear-gradient(135deg, rgba(232,193,90,.12), rgba(232,193,90,.03));
+    border-top: 1px solid rgba(232,193,90,.25);
+    border-bottom: 1px solid rgba(232,193,90,.25);
+  }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; text-align: center; }
+  .stat .num { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 900; color: var(--gold); }
+  .stat .lbl { color: var(--muted); font-size: .95rem; margin-top: 4px; }
+
+  /* ===== TIMELINE ===== */
+  .timeline { position: relative; max-width: 820px; margin: 0 auto; }
+  .timeline::before {
+    content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(180deg, var(--gold), rgba(232,193,90,.1));
+  }
+  .t-item { position: relative; padding: 0 0 44px 64px; }
+  .t-item:last-child { padding-bottom: 0; }
+  .t-item::before {
+    content: ''; position: absolute; left: 10px; top: 6px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--bg); border: 3px solid var(--gold);
+  }
+  .t-years { color: var(--gold); font-weight: 700; font-size: .9rem; letter-spacing: 1px; }
+  .t-item h3 { font-size: 1.3rem; font-weight: 800; margin: 4px 0; }
+  .t-item .apps { color: var(--muted); font-size: .9rem; }
+  .t-item p { color: #c7c7d1; margin-top: 8px; font-size: .95rem; }
+
+  /* ===== TROPHIES ===== */
+  .trophy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+  .t-card {
+    background: var(--card); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px; padding: 28px; text-align: center;
+    transition: transform .25s, border-color .25s;
+  }
+  .t-card:hover { transform: translateY(-6px); border-color: rgba(232,193,90,.5); }
+  .t-card .emoji { font-size: 2.2rem; }
+  .t-card .count { font-size: 2.4rem; font-weight: 900; color: var(--gold); margin-top: 8px; }
+  .t-card .name { color: var(--muted); margin-top: 4px; font-weight: 600; }
+
+  /* ===== SECTION BACKGROUNDS ===== */
+  #profile {
+    background:
+      linear-gradient(rgba(10,10,15,.75), rgba(10,10,15,.92)),
+      url('ronaldo-profile.jpg') center 20% / cover no-repeat;
+  }
+  #stats.stats-band {
+    background:
+      linear-gradient(135deg, rgba(232,193,90,.14), rgba(232,193,90,.04)),
+      linear-gradient(rgba(10,10,15,.8), rgba(10,10,15,.92)),
+      url('ronaldo-stats.jpg') center 25% / cover no-repeat;
+  }
+  #career {
+    background:
+      linear-gradient(rgba(10,10,15,.78), rgba(10,10,15,.93)),
+      url('ronaldo-career.jpg.webp') center 15% / cover no-repeat;
+  }
+  #trophies {
+    background:
+      linear-gradient(rgba(12,12,18,.78), rgba(12,12,18,.93)),
+      url('ronaldo-trophies.jpg') center 20% / cover no-repeat;
+  }
+
+  /* ===== QUOTE ===== */
+  .quote-sec {
+    text-align: center;
+    background:
+      linear-gradient(rgba(10,10,15,.85), rgba(10,10,15,.85)),
+      url('ronaldo-quote.jpg') center / cover no-repeat;
+  }
+  blockquote {
+    max-width: 760px; margin: 0 auto; font-size: clamp(1.3rem, 3vw, 1.9rem);
+    font-weight: 700; font-style: italic; color: var(--gold-2);
+  }
+  blockquote::before { content: '“'; display: block; font-size: 4rem; line-height: 1; color: var(--gold); }
+  .quote-author { margin-top: 20px; color: var(--muted); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center; padding: 40px 20px; color: var(--muted); font-size: .85rem;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  footer .logo { font-size: 1.1rem; margin-bottom: 8px; }
+
+  /* reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.on { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">CR<span>7</span></div>
+  <div class="nav-links">
+    <a href="#profile">프로필</a>
+    <a href="#stats">주요 기록</a>
+    <a href="#career">커리어</a>
+    <a href="#trophies">수상 경력</a>
+    <a href="#quote">명언</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-num">CR7</div>
+  <h1>크리스티아누 호날두</h1>
+  <p>포르투갈이 배출한 최고의 축구 선수. 시대를 초월한 골게터이자, 끊임없는 도전과 열정의 아이콘.</p>
+  <div class="hero-badges">
+    <span class="badge">⚽ 900+ 커리어 골</span>
+    <span class="badge">🏆 5회 발롱도르</span>
+    <span class="badge">🇵🇹 포르투갈 대표팀 에이스</span>
+  </div>
+  <div class="scroll-hint">SCROLL ▾</div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile">
+  <div class="sec-head reveal">
+    <div class="label">PROFILE</div>
+    <h2>선수 프로필</h2>
+    <p>왼발은 있지만, 공중에 뜬다. 유일무이한 존재, 크리스티아누 호날두의 기본 정보.</p>
+  </div>
+  <div class="profile-grid reveal">
+    <div class="p-card"><div class="icon">🎂</div><div class="k">출생</div><div class="v">1985. 02. 05<br>포르투갈 마데이라 푼샬</div></div>
+    <div class="p-card"><div class="icon">📏</div><div class="k">신장 / 포지션</div><div class="v">187cm / FW (윙어 · 스트라이커)</div></div>
+    <div class="p-card"><div class="icon">👟</div><div class="k">주발</div><div class="v">오른발 (양발 모두 강력)</div></div>
+    <div class="p-card"><div class="icon">🇵🇹</div><div class="k">대표팀</div><div class="v">포르투갈 (국가대표 최다 출장 · 최다 득점)</div></div>
+    <div class="p-card"><div class="icon">💨</div><div class="k">최고 순간 속도</div><div class="v">시속 38.6km</div></div>
+    <div class="p-card"><div class="icon">🚀</div><div class="k">최고 점프</div><div class="v">헤딩 순간 약 78cm 점프력</div></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="stats-band">
+  <div class="sec-head reveal">
+    <div class="label">RECORDS</div>
+    <h2>전설의 숫자들</h2>
+    <p>숫자가 증명하는 역사상 최고의 커리어.</p>
+  </div>
+  <div class="container">
+    <div class="stats-grid reveal">
+      <div class="stat"><div class="num" data-target="978">0</div><div class="lbl">커리어 총 득점</div></div>
+      <div class="stat"><div class="num" data-target="5">0</div><div class="lbl">발롱도르</div></div>
+      <div class="stat"><div class="num" data-target="5">0</div><div class="lbl">UEFA 챔피언스리그 우승</div></div>
+      <div class="stat"><div class="num" data-target="141">0</div><div class="lbl">챔피언스리그 역대 최다 득점</div></div>
+      <div class="stat"><div class="num" data-target="146">0</div><div class="lbl">국가대표 최다 득점 (세계 기록)</div></div>
+      <div class="stat"><div class="num" data-target="4">0</div><div class="lbl">유로피언 골든슈</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER -->
+<section id="career">
+  <div class="sec-head reveal">
+    <div class="label">CAREER</div>
+    <h2>커리어 여정</h2>
+    <p>마데이라의 소년이 세계 최정상에 오르기까지.</p>
+  </div>
+  <div class="timeline reveal">
+    <div class="t-item">
+      <div class="t-years">2002 – 2003</div>
+      <h3>스포르팅 CP</h3>
+      <div class="apps">리그 25경기 5골</div>
+      <p>17세에 프로 데뷔. 맨체스터 유나이티드와의 친선경기에서 맹활약하며 전 세계의 주목을 받았다.</p>
+    </div>
+    <div class="t-item">
+      <div class="t-years">2003 – 2009</div>
+      <h3>맨체스터 유나이티드</h3>
+      <div class="apps">리그 196경기 84골</div>
+      <p>세계 최고 수준으로 성장한 시기. 프리미어리그 3연속 우승과 2008년 첫 발롱도르, 첫 UCL 우승을 이뤘다.</p>
+    </div>
+    <div class="t-item">
+      <div class="t-years">2009 – 2018</div>
+      <h3>레알 마드리드</h3>
+      <div class="apps">리그 292경기 311골 — 구단 역대 최다 득점</div>
+      <p>전설의 시대. UCL 3연속 우승(2016–2018)을 포함 4회 우승, 발롱도르 3회 추가. 한 경기당 거의 1골을 터뜨린 기록적 9년.</p>
+    </div>
+    <div class="t-item">
+      <div class="t-years">2018 – 2021</div>
+      <h3>유벤투스</h3>
+      <div class="apps">리그 98경기 81골</div>
+      <p>세리에 A 최다 득점왕에 오르며 이탈리아에서도 왕좌를 증명했다.</p>
+    </div>
+    <div class="t-item">
+      <div class="t-years">2021 – 2022</div>
+      <h3>맨체스터 유나이티드 (2기)</h3>
+      <div class="apps">리그 40경기 19골</div>
+      <p>옛 신혼집으로의 귀환. 37세의 나이에도 프리미어리그에서 두 자릿수 골을 기록했다.</p>
+    </div>
+    <div class="t-item">
+      <div class="t-years">2023 – 현재</div>
+      <h3>알 나스르 (사우디아라비아)</h3>
+      <div class="apps">리그 2024-25 시즌 득점왕</div>
+      <p>새로운 도전의 무대에서도 폭발적인 득점력을 이어가며 900골의 대기록을 달성했다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TROPHIES -->
+<section id="trophies">
+  <div class="sec-head reveal">
+    <div class="label">HONOURS</div>
+    <h2>수상 경력</h2>
+    <p>커리어를 수놓은 수많은 트로피들.</p>
+  </div>
+  <div class="container">
+    <div class="trophy-grid reveal">
+      <div class="t-card"><div class="emoji">🏆</div><div class="count">5</div><div class="name">발롱도르</div></div>
+      <div class="t-card"><div class="emoji">⭐</div><div class="count">5</div><div class="name">UEFA 챔피언스리그</div></div>
+      <div class="t-card"><div class="emoji">🇪🇺</div><div class="count">2</div><div class="name">EURO / 네이션스리그 (포르투갈)</div></div>
+      <div class="t-card"><div class="emoji">👑</div><div class="count">7</div><div class="name">주요 리그 우승 (잉글랜드 3, 스페인 2, 이탈리아 2)</div></div>
+      <div class="t-card"><div class="emoji">🥇</div><div class="count">4</div><div class="name">유로피언 골든슈</div></div>
+      <div class="t-card"><div class="emoji">🌍</div><div class="count">1</div><div class="name">FIFA 클럽 월드컵 (4회 포함)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section id="quote" class="quote-sec">
+  <div class="reveal">
+    <blockquote>나는 최고가 되기 위해 태어난 것이 아니다.<br>최고가 되기 위해 훈련하는 것이다.</blockquote>
+    <div class="quote-author">— 크리스티아누 호날두</div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">CR<span>7</span></div>
+  <div>크리스티아누 호날두 팬 홍보 사이트 · 비공식 팬 페이지</div>
+  <div style="margin-top:6px;">Made with ❤️ &amp; ⚽</div>
+</footer>
+
+<script>
+  // scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // animated counters
+  const cio = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target, target = +el.dataset.target, dur = 1600, start = performance.now();
+      const tick = now => {
+        const p = Math.min((now - start) / dur, 1);
+        el.textContent = Math.floor(target * (1 - Math.pow(1 - p, 3))).toLocaleString() + (p === 1 && target >= 100 ? '+' : '');
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      cio.unobserve(el);
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('.stat .num').forEach(el => cio.observe(el));
+</script>
+</body>
+</html>
