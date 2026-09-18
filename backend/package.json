@@ -1,0 +1,14 @@
+{
+  "name": "ronaldo-fan-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CR7 fan site backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
