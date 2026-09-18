@@ -186,6 +186,41 @@
   blockquote::before { content: '“'; display: block; font-size: 4rem; line-height: 1; color: var(--gold); }
   .quote-author { margin-top: 20px; color: var(--muted); }
 
+  /* ===== FAN ZONE ===== */
+  .fan-box { max-width: 760px; margin: 0 auto; text-align: center; }
+  .like-btn {
+    font-size: 1.2rem; font-weight: 800; color: #fff;
+    background: linear-gradient(135deg, var(--red), #b02a37);
+    border: none; border-radius: 999px; padding: 16px 34px; cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+    box-shadow: 0 8px 24px rgba(230,57,70,.35);
+  }
+  .like-btn:hover { transform: translateY(-2px) scale(1.02); }
+  .like-btn:active { transform: scale(.96); }
+  .like-btn:disabled { opacity: .6; cursor: wait; }
+  .like-count { font-size: 2rem; font-weight: 900; color: var(--gold); margin-top: 14px; }
+  .visit-count { color: var(--muted); margin-top: 6px; font-size: .9rem; }
+  .gb-form { display: flex; flex-direction: column; gap: 10px; margin: 36px auto 0; max-width: 640px; text-align: left; }
+  .gb-form input, .gb-form textarea {
+    background: var(--card); border: 1px solid rgba(255,255,255,.12); border-radius: 12px;
+    color: var(--text); padding: 12px 16px; font-family: inherit; font-size: .95rem; resize: vertical;
+  }
+  .gb-form input:focus, .gb-form textarea:focus { outline: none; border-color: var(--gold); }
+  .gb-form button {
+    align-self: flex-end; background: var(--gold); color: #1a1408; font-weight: 800;
+    border: none; border-radius: 999px; padding: 10px 26px; cursor: pointer; font-size: .95rem;
+  }
+  .gb-form button:hover { background: var(--gold-2); }
+  .gb-list { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; text-align: left; }
+  .gb-item {
+    background: rgba(23,23,34,.85); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px; padding: 14px 18px;
+  }
+  .gb-item .who { font-weight: 700; color: var(--gold); }
+  .gb-item .when { color: var(--muted); font-size: .78rem; margin-left: 8px; }
+  .gb-item .msg { margin-top: 4px; color: #d9d9e0; word-break: break-word; }
+  .gb-status { color: var(--muted); font-size: .85rem; margin-top: 10px; min-height: 1.2em; }
+
   /* ===== FOOTER ===== */
   footer {
     text-align: center; padding: 40px 20px; color: var(--muted); font-size: .85rem;
@@ -208,6 +243,7 @@
     <a href="#career">커리어</a>
     <a href="#trophies">수상 경력</a>
     <a href="#quote">명언</a>
+    <a href="#fan">팬 존</a>
   </div>
 </nav>
 
@@ -334,6 +370,27 @@
   </div>
 </section>
 
+<!-- FAN ZONE -->
+<section id="fan" style="background: var(--bg-2);">
+  <div class="sec-head reveal">
+    <div class="label">FAN ZONE</div>
+    <h2>팬 존</h2>
+    <p>호날두를 응원하고, 팬들의 메시지를 남겨보세요.</p>
+  </div>
+  <div class="fan-box reveal">
+    <button class="like-btn" id="likeBtn">❤️ CR7 응원하기</button>
+    <div class="like-count" id="likeCount">♥ —</div>
+    <div class="visit-count" id="visitCount">통계를 불러오는 중...</div>
+    <form class="gb-form" id="gbForm">
+      <input type="text" id="gbName" placeholder="이름 (선택)" maxlength="30">
+      <textarea id="gbMsg" rows="3" placeholder="응원 메시지를 남겨주세요! (최대 200자)" maxlength="200" required></textarea>
+      <button type="submit">메시지 남기기</button>
+    </form>
+    <div class="gb-status" id="gbStatus"></div>
+    <div class="gb-list" id="gbList"></div>
+  </div>
+</section>
+
 <footer>
   <div class="logo">CR<span>7</span></div>
   <div>크리스티아누 호날두 팬 홍보 사이트 · 비공식 팬 페이지</div>
@@ -362,6 +419,84 @@
     });
   }, { threshold: .5 });
   document.querySelectorAll('.stat .num').forEach(el => cio.observe(el));
+
+  // ===== fan zone (Render backend API) =====
+  const API_BASE = 'https://ronaldo-fan-backend.onrender.com';
+  const $ = id => document.getElementById(id);
+
+  function fmtDate(iso) { try { return new Date(iso).toLocaleString('ko-KR'); } catch (_) { return ''; } }
+
+  function renderGuestbook(entries) {
+    const list = $('gbList');
+    list.textContent = '';
+    if (!entries.length) {
+      const empty = document.createElement('div');
+      empty.className = 'gb-status';
+      empty.textContent = '아직 메시지가 없습니다. 첫 응원의 메시지를 남겨보세요!';
+      list.appendChild(empty);
+      return;
+    }
+    entries.forEach(e => {
+      const item = document.createElement('div');
+      item.className = 'gb-item';
+      const head = document.createElement('div');
+      const who = document.createElement('span'); who.className = 'who'; who.textContent = e.name;
+      const when = document.createElement('span'); when.className = 'when'; when.textContent = fmtDate(e.at);
+      const msg = document.createElement('div'); msg.className = 'msg'; msg.textContent = e.message;
+      head.appendChild(who); head.appendChild(when);
+      item.appendChild(head); item.appendChild(msg);
+      list.appendChild(item);
+    });
+  }
+
+  async function loadFanData() {
+    try {
+      const [likes, visits, gb] = await Promise.all([
+        fetch(API_BASE + '/api/likes').then(r => r.json()),
+        fetch(API_BASE + '/api/visits').then(r => r.json()),
+        fetch(API_BASE + '/api/guestbook').then(r => r.json())
+      ]);
+      $('likeCount').textContent = '♥ ' + (likes.likes || 0).toLocaleString();
+      $('visitCount').textContent = '누적 방문 ' + (visits.visits || 0).toLocaleString() + '회';
+      renderGuestbook(gb.entries || []);
+    } catch (_) {
+      $('visitCount').textContent = '서버에 연결할 수 없습니다 (무료 플랜은 첫 요청 시 깨어나는 데 시간이 걸립니다)';
+    }
+  }
+
+  $('likeBtn').addEventListener('click', async () => {
+    $('likeBtn').disabled = true;
+    try {
+      const d = await fetch(API_BASE + '/api/likes', { method: 'POST' }).then(r => r.json());
+      $('likeCount').textContent = '♥ ' + (d.likes || 0).toLocaleString();
+    } catch (_) {}
+    $('likeBtn').disabled = false;
+  });
+
+  $('gbForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const name = $('gbName').value.trim();
+    const message = $('gbMsg').value.trim();
+    if (!message) return;
+    $('gbStatus').textContent = '전송 중...';
+    try {
+      const r = await fetch(API_BASE + '/api/guestbook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, message })
+      });
+      if (!r.ok) throw new Error('bad response');
+      $('gbMsg').value = '';
+      $('gbStatus').textContent = '메시지가 등록되었습니다! ⚽';
+      const gb = await fetch(API_BASE + '/api/guestbook').then(x => x.json());
+      renderGuestbook(gb.entries || []);
+    } catch (_) {
+      $('gbStatus').textContent = '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+    }
+  });
+
+  fetch(API_BASE + '/api/visits', { method: 'POST' }).catch(() => {});
+  loadFanData();
 </script>
 </body>
 </html>
